@@ -1,0 +1,19 @@
+services:
+  server:
+    hostname: hour-server
+    image: hour-server
+    ports:
+      - "3000:3000"
+    
+  nginx:
+    hostname: nginx
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt
+    depends_on:
+      - server
